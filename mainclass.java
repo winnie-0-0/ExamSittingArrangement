@@ -6,13 +6,13 @@ import java.io.*;
 class mainclass {
     /**
      * @param args
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException3
      * @throws IOException
      */
     public static void main(String args[]) throws FileNotFoundException, IOException {
 
         // String file_name;
-        // try kar rhi hu
+
         System.out.println("\n\n**********************************************************************************");
         System.out.println("\t\t EXAMINATION SITTING ARRANGEMENT SYSTEM \t\t\t\t");
         System.out.println("**********************************************************************************");
@@ -67,6 +67,7 @@ class mainclass {
         // co.display();
         // }
         /*---------------------------------------------------------------------------------------------------------------- */
+        //Taking input of Section files 
         System.out.println("\n >>> Input the total number of Files ( Sections' Data file ) : ");
         //Scanner sc = new Scanner(System.in);
         BufferedReader sc = new BufferedReader(new InputStreamReader(System.in));
@@ -95,6 +96,8 @@ class mainclass {
             nf = nf - 1;
 
         }
+        /*---------------------------------------------------------------------------------------------------------------- */
+        //Storing complete data in two ArrayLists even and odd.
 
         ArrayList<section> even = new ArrayList<>();
         ArrayList<section> odd = new ArrayList<>();
@@ -148,6 +151,8 @@ class mainclass {
             itr++;
             // allSections.add(data_sec);
         }
+        /*---------------------------------------------------------------------------------------------------------------- */
+        // Storing "NA" if one file has less content than other so that its easier while writing to the final file
 
         if(even.size() < odd.size()){
             for (int j = 0 ; j< (odd.size()-even.size());j++){
@@ -167,6 +172,8 @@ class mainclass {
         }
 
         /*--------------------------------------------------------------------------------------------------------------- */
+        //Writing to the file !!
+
         System.out.println("SAVE YOUR FILE !!");
         File finalFile;
         JFileChooser fileChooser = new JFileChooser();
@@ -177,26 +184,10 @@ class mainclass {
             // save to file
             bw.append("Seat Number,Roll No 1st Student,Roll No 2nd Student\n");
 
-            int smallest = 0;
-            int a = SeatNo.size();
-            int b = even.size();
-            int c = odd.size();
-
-            if (a<b){
-                if (c<a){
-                    smallest = c;
-                }
-                else{
-                    smallest = a;
-                }
-            }
-            else{
-                smallest = b;
-            }
-            if (smallest == SeatNo.size()) {
+            if (SeatNo.size() < even.size()) {
                 System.out.println("The Capacity of Classes as mentioned in Class Occupancy File is INSUFFICIENT !! ");
             } 
-            for (int k = 0; k < smallest; k++) {
+            for (int k = 0; k < even.size(); k++) {
                 String row = String.valueOf(SeatNo.get(k)) + "," + String.valueOf(even.get(k).sectionName) + 
                              String.valueOf(even.get(k).roll) + ","
                             + String.valueOf(odd.get(k).sectionName) + 
